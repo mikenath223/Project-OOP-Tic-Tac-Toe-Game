@@ -1,34 +1,57 @@
 #!/usr/bin/env ruby
 puts "Hello welcome to the tic-tactoe game!"
-print "First player's name: "
+puts " "
+
+puts "The rules..."
+puts "The board is arranged in squares boxes which start from number 1 to 9. 
+When you choose to play either X or O you also have to choose on which position 
+of the board you will place your choice. May the odds be ever in your favor :)"
+puts " "
+
+print "Input First player's name: "
 first_player_name = gets.chomp
 
-print "Second player's name: "
+print "Input Second player's name: "
 second_player_name = gets.chomp
 
 puts " "
 
-print "#{first_player_name}, Kindly chose between 'X' or '0':"
+print "#{first_player_name}, Kindly chose between 'X' or '0': "
 first_player_choice = gets.chomp
 
 puts "You have picked #{first_player_choice}"
+print "#{first_player_name}, Kindly chose from position 1 to 9 on which position of 
+the board you wish to place your choice? "
+first_player_board_position = gets.chomp
+puts "Nice #{first_player_name} has chosen to play #{first_player_choice} at 
+position #{first_player_board_position}. Now your choice is displayed on the board below. "
+
 
 puts "Exellent! Now it's your opponent's turn"
 
 puts " "
 
-print "#{second_player_name}, Kindly chose between 'X' or '0':"
+print "#{second_player_name}, Kindly chose between 'X' or '0': "
 second_player_choice = gets.chomp
-
 puts "You have picked #{second_player_choice}"
+print "#{second_player_name}, Kindly chose between 1 to 9 on which position of 
+the board you wish to place your choice? "
+second_player_board_position = gets.chomp
+puts "Nice #{second_player_name} has chosen to play #{second_player_choice} at 
+position #{second_player_board_position}." 
 
 puts " "
 
-puts "These are both your moves on the board: "
+puts "Now both your choices are displayed on the board below. "
 
-puts "Congratulations! #{first_player_choice}, You WIN!"
+puts " "
 
+puts "Congratulations! #{first_player_name}, You WIN!"
+puts "Oh no! #{first_player_name}, You Lose :("
+puts " "
 
-puts "Congratulations! #{second_player_choice}, You WIN!"
+puts "Congratulations! #{second_player_name}, You WIN!"
+puts "Oh no! #{second_player_name}, You Lose :("
+puts " "
 
 puts "It's a draw!"
