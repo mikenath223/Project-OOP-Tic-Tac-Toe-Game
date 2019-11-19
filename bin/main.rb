@@ -27,11 +27,10 @@ while game_on
     #loop for each move
     if winner_and_or_draw
         game_on = false
+        #breaks loop
     end
-end
 
 #each move
-
 print "#{first_player_name}, Kindly chose between 'X' or '0': "
     first_player_choice = gets.chomp
 # Check to confirm if right input, if not request for right input
@@ -47,6 +46,7 @@ print "#{first_player_name}, Kindly chose between 'X' or '0': "
     position #{first_player_board_position}. Now your choice is displayed on the board below. "
 
 #Now board is displayed
+puts "Here is the result of the board "
 
 
     puts "Exellent! Now it's your opponent's turn"
@@ -68,14 +68,18 @@ print "#{first_player_name}, Kindly chose between 'X' or '0': "
 
 #Now board is displayed
 
-    puts " "
+    puts "Here is the result of the board "
 
-    puts "Now both your choices are displayed on the board below. "
+end
 
-#Now board is displayed
 
 
 if game_on == false
+#Now board is displayed
+
+puts "Here is the result of the final board "
+
+
   if x_wins
     puts " "
     puts "Congratulations! #{first_player_name}, You WIN!"
