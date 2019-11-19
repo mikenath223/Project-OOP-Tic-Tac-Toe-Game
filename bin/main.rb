@@ -24,11 +24,6 @@ game_on = true
 #initial instructions for player
 
 while game_on
-    #loop for each move
-    if winner_and_or_draw
-        game_on = false
-        #breaks loop
-    end
 
 #each move
 print "#{first_player_name}, Kindly chose between 'X' or '0': "
@@ -46,8 +41,11 @@ print "#{first_player_name}, Kindly chose between 'X' or '0': "
     position #{first_player_board_position}. Now your choice is displayed on the board below. "
 
 #Now board is displayed
-puts "Here is the result of the board "
-
+    #loop for each move
+  if winner_and_or_draw
+      game_on = false
+  end
+    next if !game_on
 
     puts "Exellent! Now it's your opponent's turn"
 
@@ -69,6 +67,11 @@ puts "Here is the result of the board "
 #Now board is displayed
 
     puts "Here is the result of the board "
+    #loop for each move
+  if winner_and_or_draw
+      game_on = false
+      #breaks loop
+  end
 
 end
 
