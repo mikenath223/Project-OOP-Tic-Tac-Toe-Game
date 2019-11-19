@@ -26,5 +26,9 @@ puts " "
 
 puts "These are both your moves on the board: "
 
+puts "Congratulations! #{first_player_choice}, You WIN!"
 
 
+puts "Congratulations! #{second_player_choice}, You WIN!"
+
+puts "It's a draw!"
