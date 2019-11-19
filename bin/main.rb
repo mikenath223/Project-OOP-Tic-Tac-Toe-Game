@@ -16,42 +16,46 @@ second_player_name = gets.chomp
 
 puts " "
 
-print "#{first_player_name}, Kindly chose between 'X' or '0': "
-first_player_choice = gets.chomp
+# while true
+#     break if x_wins || o_wins || tie
 
-puts "You have picked #{first_player_choice}"
-print "#{first_player_name}, Kindly chose from position 1 to 9 on which position of 
-the board you wish to place your choice? "
-first_player_board_position = gets.chomp
-puts "Nice #{first_player_name} has chosen to play #{first_player_choice} at 
-position #{first_player_board_position}. Now your choice is displayed on the board below. "
+#     print "#{first_player_name}, Kindly chose between 'X' or '0': "
+#     first_player_choice = gets.chomp
+
+#     puts "You have picked #{first_player_choice}"
+#     print "#{first_player_name}, Kindly chose from position 1 to 9 on which position of 
+#     the board you wish to place your choice? "
+#     first_player_board_position = gets.chomp
+#     puts "Nice #{first_player_name} has chosen to play #{first_player_choice} at 
+#     position #{first_player_board_position}. Now your choice is displayed on the board below. "
 
 
-puts "Exellent! Now it's your opponent's turn"
+#     puts "Exellent! Now it's your opponent's turn"
 
-puts " "
+#     puts " "
 
-print "#{second_player_name}, Kindly chose between 'X' or '0': "
-second_player_choice = gets.chomp
-puts "You have picked #{second_player_choice}"
-print "#{second_player_name}, Kindly chose between 1 to 9 on which position of 
-the board you wish to place your choice? "
-second_player_board_position = gets.chomp
-puts "Nice #{second_player_name} has chosen to play #{second_player_choice} at 
-position #{second_player_board_position}." 
+#     print "#{second_player_name}, Kindly chose between 'X' or '0': "
+#     second_player_choice = gets.chomp
+#     puts "You have picked #{second_player_choice}"
+#     print "#{second_player_name}, Kindly chose between 1 to 9 on which position of 
+#     the board you wish to place your choice? "
+#     second_player_board_position = gets.chomp
+#     puts "Nice #{second_player_name} has chosen to play #{second_player_choice} at 
+#     position #{second_player_board_position}." 
 
-puts " "
+#     puts " "
 
-puts "Now both your choices are displayed on the board below. "
-
-puts " "
-
-puts "Congratulations! #{first_player_name}, You WIN!"
-puts "Oh no! #{first_player_name}, You Lose :("
-puts " "
-
-puts "Congratulations! #{second_player_name}, You WIN!"
-puts "Oh no! #{second_player_name}, You Lose :("
-puts " "
-
-puts "It's a draw!"
+#     puts "Now both your choices are displayed on the board below. "
+# end
+if x_wins
+    puts " "
+    puts "Congratulations! #{first_player_name}, You WIN!"
+    puts "Oh no! #{first_player_name}, You Lose :("
+    puts " "
+elsif o_wins
+    puts "Congratulations! #{second_player_name}, You WIN!"
+    puts "Oh no! #{second_player_name}, You Lose :("
+    puts " "
+else
+    puts "It's a draw!"
+end
