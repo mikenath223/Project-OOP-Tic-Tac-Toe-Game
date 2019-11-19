@@ -75,7 +75,6 @@ end
 
 
 if game_on == false
-#Now board is displayed
 
 puts "Here is the result of the final board "
 
