@@ -19,54 +19,73 @@ second_player_name = gets.chomp
 
 puts " "
 
-# while true
-#     break if x_wins || o_wins || tie
+game_on = true
 
-#     print "#{first_player_name}, Kindly chose between 'X' or '0': "
-#     first_player_choice = gets.chomp
-#Check to confirm if right input, if not request for right input
+#initial instructions for player
+
+while game_on
+    #loop for each move
+    if winner_and_or_draw
+        game_on = false
+    end
+end
+
+#each move
+
+print "#{first_player_name}, Kindly chose between 'X' or '0': "
+    first_player_choice = gets.chomp
+Check to confirm if right input, if not request for right input
 
 
-#     puts "You have picked #{first_player_choice}"
-#     print "#{first_player_name}, Kindly chose from position 1 to 9 on which position of 
-#     the board you wish to place your choice? "
-#     first_player_board_position = gets.chomp
-#Check to confirm if right input, if not request for right input
+    puts "You have picked #{first_player_choice}"
+    print "#{first_player_name}, Kindly chose from position 1 to 9 on which position of 
+    the board you wish to place your choice? "
+    first_player_board_position = gets.chomp
+Check to confirm if right input, if not request for right input
 
-#     puts "Nice #{first_player_name} has chosen to play #{first_player_choice} at 
-#     position #{first_player_board_position}. Now your choice is displayed on the board below. "
+    puts "Nice #{first_player_name} has chosen to play #{first_player_choice} at 
+    position #{first_player_board_position}. Now your choice is displayed on the board below. "
+
+#Now board is displayed
 
 
-#     puts "Exellent! Now it's your opponent's turn"
+    puts "Exellent! Now it's your opponent's turn"
 
-#     puts " "
+    puts " "
 
-#     print "#{second_player_name}, Kindly chose between 'X' or '0': "
-#     second_player_choice = gets.chomp
-#Check to confirm if right input, if not request for right input
+    print "#{second_player_name}, Kindly chose between 'X' or '0': "
+    second_player_choice = gets.chomp
+Check to confirm if right input, if not request for right input
 
-#     puts "You have picked #{second_player_choice}"
-#     print "#{second_player_name}, Kindly chose between 1 to 9 on which position of 
-#     the board you wish to place your choice? "
-#     second_player_board_position = gets.chomp
-#Check to confirm if right input, if not request for right input
+    puts "You have picked #{second_player_choice}"
+    print "#{second_player_name}, Kindly chose between 1 to 9 on which position of 
+    the board you wish to place your choice? "
+    second_player_board_position = gets.chomp
+Check to confirm if right input, if not request for right input
 
-#     puts "Nice #{second_player_name} has chosen to play #{second_player_choice} at 
-#     position #{second_player_board_position}." 
+    puts "Nice #{second_player_name} has chosen to play #{second_player_choice} at 
+    position #{second_player_board_position}." 
 
-#     puts " "
+#Now board is displayed
 
-#     puts "Now both your choices are displayed on the board below. "
-# end
-if x_wins
+    puts " "
+
+    puts "Now both your choices are displayed on the board below. "
+
+#Now board is displayed
+
+
+if game_on = false
+  if x_wins
     puts " "
     puts "Congratulations! #{first_player_name}, You WIN!"
     puts "Oh no! #{first_player_name}, You Lose :("
     puts " "
-elsif o_wins
+    elsif o_wins
     puts "Congratulations! #{second_player_name}, You WIN!"
     puts "Oh no! #{second_player_name}, You Lose :("
     puts " "
-else
+    else
     puts "It's a tie!"
+  end
 end
