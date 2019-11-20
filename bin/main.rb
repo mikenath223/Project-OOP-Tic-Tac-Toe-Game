@@ -1,15 +1,18 @@
 #!/usr/bin/env ruby
-puts "Hello welcome to the tic-tactoe game!"
-puts " "
+require "./lib/logic.rb"
 
 puts "The rules..."
 puts "The board is arranged in squares boxes which start from number 1 to 9. 
 When you choose to play either X or O you also have to choose on which position 
 of the board you will place your choice. May the odds be ever in your favor :)"
+puts ""
+puts "Sample board"
+puts "| X | O | O |"
+puts "| _ | _ | O |"
+puts "| X | O | O |"
+
 puts " "
 
-puts "Here is the board below where both your choices will be displayed on the board. "
-puts " "
 
 print "Input First player's name: "
 first_player_name = gets.chomp
