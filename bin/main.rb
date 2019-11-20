@@ -7,9 +7,8 @@ end
 
 def rules
 puts "The rules..."
-puts "The board is arranged in squares boxes which start from number 1 to 9. 
-When you choose to play either X or O you also have to choose on which position 
-of the board you will place your choice. May the odds be ever in your favor :)"
+puts "The board is arranged in squares boxes which start from number 1 to 9. Player 1 will play crosses(X). Player 2 will play naughts(O).
+You will have to choose on which position of the board you will place your choice. May the odds be ever in your favor :)"
 puts ""
 puts "Sample board containing numbered positions. "
 puts "| 1 || 2 || 3 |"
@@ -33,19 +32,8 @@ def get_player_names
   chosen_players
 end
 
-
-def check_input(input)
-  return true if input.is_a?(Numeric) && input.length == 1
-  false
-end
-
 def ask_move(current_player_name)
-  "#{current_player_name}: Enter a number between 1 and 9 to make your move"
-end
-
-def get_move(human_move = gets.chomp)
-  right_input = check_input(human_move)
-  human_move_to_cord(right_input)
+  puts "#{current_player_name}: Please input the position between 1 and 9 you wish to place "
 end
 
 def game_over_message
@@ -53,16 +41,27 @@ def game_over_message
   return 'The game ended in a draw' if board.game_over? == :draw
 end
 
+def check_input(input)
+  return true if input.is_a?(Numeric) && input != 0 && input.length == 1
+  false
+end
+
+turns = true
+
 
 def play(game)
     loop do
-      board.format_grid
+      game.grid_default
+      puts game.print_board
+      puts ""
+      position = gets.chomp
+      next unless check_input(position)
+      game.get_move(position)
+
       puts ''
-      puts ask_move
-      cord_x, cord_y = get_move
-      board.set_cell(cord_x, cord_y, current_player.pick)
-      if board.game_over?
-        puts game_over_message
+      game.set_cell(cord_x, cord_y, current_player.pick)
+      if game.game_over?
+        puts game.game_over_message
         board.format_grid
         return
       else

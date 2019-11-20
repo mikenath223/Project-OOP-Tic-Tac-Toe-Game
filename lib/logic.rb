@@ -4,19 +4,21 @@ module TicTacToe
   class Game
     attr_accessor :player1, :player2, :board
     def initialize(first_player, second_player)
-      @player1 = first_player
-      @player2 = second_player
+      @player1 = [first_player, 'X']
+      @player2 = [second_player, 'O']
       @board = [[Cell.new], [Cell.new], [Cell.new]]
     end
 
-    def find_cell(cord_x, cord_y)
-      @board[cord_y][cord_x]
+    def find_cell(cord_x, cord_y, val)
+      @player1
+      @board[cord_y][cord_x] = val
     end
 
-    def set_cell(cord_x, cord_y, val)
-      find_cell(cord_x, cord_y).value = val
+    def get_move(human_move)
+      map_move = human_move_to_cord(human_move)
+      find_cell(map_move[0], map_move[1], hum)
     end
-
+    
     def game_over?
       return :winner if winner?
       return :draw if draw?
