@@ -73,12 +73,11 @@ module TicTacToe
   end
 
   class Game
-    
     attr_reader :players, :board, :current_player, :other_player
     def initialize(players, board = Board.new)
       @players = players
       @board = board
-      @current_player, other_player = players.switch
+      @current_player, @other_player = players.switch
     end
 
     def switch_players
@@ -95,14 +94,14 @@ module TicTacToe
 
     def game_over_message
       return "#{current_player.name} won!" if board.game_over == :winner
-      return "The game ended in a draw" if board.game_over == :draw
+      return 'The game ended in a draw' if board.game_over == :draw
     end
 
     def play
       puts "#{current_player.name} has randomly been selected as first player"
-      while true
+      loop do
         board.format_grid
-        puts ""
+        puts ''
         puts ask_move
         cord_x, cord_y = get_move
         board.set_cell(cord_x, cord_y, current_player.pick)
@@ -120,20 +119,27 @@ module TicTacToe
 
     def human_move_to_cord(human_move)
       mapping = {
-        "1" => [0, 0],
-        "2" => [1, 0],
-        "3" => [2, 0],
-        "4" => [0, 1],
-        "5" => [1, 1],
-        "6" => [2, 1],
-        "7" => [0, 2],
-        "8" => [1, 2],
-        "9" => [2, 2]
+        '1' => [0, 0],
+        '2' => [1, 0],
+        '3' => [2, 0],
+        '4' => [0, 1],
+        '5' => [1, 1],
+        '6' => [2, 1],
+        '7' => [0, 2],
+        '8' => [1, 2],
+        '9' => [2, 2]
       }
       mapping[human_move]
     end
-    
   end
+
+  # class Player
+  #   attr_reader :pick, :name
+  #   def initialize(input)
+  #     @pick = input.fetch(:pick)
+  #     @name = input.fetch(:name)
+  #   end
+  # end
 end
 
 class Array
