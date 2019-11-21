@@ -6,15 +6,15 @@ module TicTacToe
     def initialize(first_player, second_player)
       @player1 = [first_player, 'X']
       @player2 = [second_player, 'O']
-      @board = [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]]
+      @board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     end
 
-    def find_cell(cord_x, cord_y, player)
-      val = if player == player1
-              @player1[1]
-            else
-              @player2[1]
-            end
+    def find_cell(cord_x, cord_y, player = nil)
+      if player == @player1
+        val = @player1[1]
+      else
+        val = @player2[1]
+      end
       @board[cord_y][cord_x] = val
     end
 
@@ -24,9 +24,7 @@ module TicTacToe
     end
 
     def game_over?
-      return :winner if winner?
-      return :draw if draw?
-
+      return true if winner?
       false
     end
 
@@ -37,25 +35,17 @@ module TicTacToe
     end
 
     def grid_default
-      @board = [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]]
+      @board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     end
 
     private
-
-    def draw?
-      grid.flatten.map(&:value).none_empty?
-    end
-
+#all? { |elem| elem == self[0]
     def winner?
       win_positions.each do |win_pos|
-        next if win_pos_vals(win_pos).all_empty?
-        return true if win_pos_vals(win_pos).all_same?
+        next if win_pos.map{|elem| elem.all? { |elem| elem.is_a?(Numeric) } }
+        return true if win_pos.map {|elem| elem.uniq.count == 1 }
       end
       false
-    end
-
-    def win_pos_vals(win_pos)
-      win_pos.map(&:value)
     end
 
     def win_positions
@@ -86,20 +76,3 @@ module TicTacToe
   end
 end
 
-class Array
-  def all_empty?
-    all? { |elem| elem.to_s.empty? }
-  end
-
-  def all_same?
-    all? { |elem| elem == self[0] }
-  end
-
-  def any_empty?
-    any? { |elem| elem.to_s.empty? }
-  end
-
-  def none_empty?
-    !any_empty?
-  end
-end

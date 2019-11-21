@@ -83,6 +83,7 @@ end
 end
 
 def get_right_input
+  position = nil
   loop do
     puts "Seems you entered the wrong input. Please choose a number from 1-9 :)"
     position = gets.chomp
