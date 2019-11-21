@@ -59,21 +59,28 @@ end
 
 def replay
 puts 'Do you want a rematch? Press y for yes or n for no '
+choice = gets.chomp
+choice.downcase!
+if choice != 'y' || choice != 'n' 
 loop do
   choice = gets.chomp
   choice.downcase!
   if choice != 'y' || choice != 'n'
     puts 'Seems you entered the wrong input please press y for yes or n for no '
     next
-  elsif choice == 'y'
-    play(game)
   else
     break
   end
 end
+if choice == 'y'
+  names = get_player_names
+  game = TicTacToe::Game.new(names[0], names[1])
+  play(game, names)
+elsif choice == 'n'
+  puts 'Glad to have you do come again :)'
 end
-
-
+end
+end
 
 def get_right_input
   loop do
@@ -83,16 +90,6 @@ def get_right_input
     break if check_input(position)
   end
   return position
-end
-
-def chk_empty_slots(arr)
-  puts 'These are the available positions '
-  array = [1,2,3,4,5,6,7,8,9]
-  available_slots = []
-
-  for i in array do
-      
-  end
 end
 
 def play(game, player)
@@ -106,18 +103,19 @@ def play(game, player)
     position = gets.chomp
     position = position.to_i
     if !check_input(position)
-      position = get_right_input 
-      if arr.include?(position)
-      puts "Position has already been taken"
-      chk_empty_slots(arr)
-      end
+      position = get_right_input
+    end
+    if arr.include?(position)
+    puts "Position has already been taken"
+    puts 'Positions filled with numbers are available so choose a number on the board'
+    next
     end
     arr << position
     game.get_move(position, current_player)
     
     puts ''
     turn += 1
-    if turn > 5
+    if turn > 6
       if game.game_over?
         puts game.game_over_message(current_player)
         game.print_grid
