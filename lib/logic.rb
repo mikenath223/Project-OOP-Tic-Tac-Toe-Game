@@ -6,17 +6,21 @@ module TicTacToe
     def initialize(first_player, second_player)
       @player1 = [first_player, 'X']
       @player2 = [second_player, 'O']
-      @board = [[Cell.new], [Cell.new], [Cell.new]]
+      @board = [[nil,nil,nil], [nil,nil,nil], [nil,nil,nil]]
     end
 
-    def find_cell(cord_x, cord_y, val)
-      @player1
+    def find_cell(cord_x, cord_y, player)
+      if player == player1
+        val = @player1[1]
+      else
+        val = @player2[1]
+      end
       @board[cord_y][cord_x] = val
     end
 
-    def get_move(human_move)
+    def get_move(human_move, player)
       map_move = human_move_to_cord(human_move)
-      find_cell(map_move[0], map_move[1], hum)
+      find_cell(map_move[0], map_move[1], player)
     end
     
     def game_over?
@@ -27,20 +31,13 @@ module TicTacToe
     end
 
     def print_grid
-      @board.each do |row|
-        row.map { |cell| cell.value.empty? ? '| _ |' : "| #{cell.value} |" }.join(' ')
+      @board.map do |row|
+         rows = row.map { |cell| cell.nil? ? '| _ |' : "| #{cell} |" }.join()
       end
     end
 
     def grid_default
-      @board = [[Cell.new], [Cell.new], [Cell.new]]
-    end
-
-    class Cell
-      attr_accessor :value
-      def initialize(value = '')
-        @value = value
-      end
+      @board = [[nil,nil,nil], [nil,nil,nil], [nil,nil,nil]]
     end
 
     private
@@ -76,15 +73,15 @@ module TicTacToe
 
     def human_move_to_cord(human_move)
       mapping = {
-        '1' => [0, 0],
-        '2' => [1, 0],
-        '3' => [2, 0],
-        '4' => [0, 1],
-        '5' => [1, 1],
-        '6' => [2, 1],
-        '7' => [0, 2],
-        '8' => [1, 2],
-        '9' => [2, 2]
+        1 => [0, 0],
+        2 => [1, 0],
+        3 => [2, 0],
+        4 => [0, 1],
+        5 => [1, 1],
+        6 => [2, 1],
+        7 => [0, 2],
+        8 => [1, 2],
+        9 => [2, 2]
       }
       mapping[human_move]
     end

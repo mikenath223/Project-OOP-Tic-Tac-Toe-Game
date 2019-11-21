@@ -28,46 +28,107 @@ def get_player_names
   puts "Good to have you here #{player1} and #{player2}"
   players = [player1, player2]
   chosen_players = players.shuffle
-  puts "#{chosen_players[0]} has randomly been selected as first player"
-  chosen_players
+  puts "#{chosen_players[0]} has randomly been selected as first player he will be using X"
+  return chosen_players
 end
 
-def ask_move(current_player_name)
-  puts "#{current_player_name}: Please input the position between 1 and 9 you wish to place "
+def ask_move(current_player)
+  puts "#{current_player}: Please input the position between 1 and 9 you wish to place your move "
 end
 
-def game_over_message
-  return "#{current_player.name} won!" if board.game_over? == :winner
+def game_over_message(current_player)
+  return "#{current_player} won!" if board.game_over? == :winner
   return 'The game ended in a draw' if board.game_over? == :draw
 end
 
-def check_input(input)
-  return true if input.is_a?(Numeric) && input != 0 && input.length == 1
-  false
+def check_input(input = nil)
+  if !input.nil? 
+    return true if input != 0 && input.is_a?(Numeric) && input.to_s.length != 0 && input.to_s.length == 1
+  end
+  return false
 end
 
-turns = true
+
+def switch_players(players, turn)
+  if turn.odd?
+   return players[0]
+  else
+   return players[1]
+  end
+end
+
+def replay
+puts 'Do you want a rematch? Press y for yes or n for no '
+loop do
+  choice = gets.chomp
+  choice.downcase!
+  if choice != 'y' || choice != 'n'
+    puts 'Seems you entered the wrong input please press y for yes or n for no '
+    next
+  elsif choice == 'y'
+    play(game)
+  else
+    break
+  end
+end
+end
 
 
-def play(game)
-    loop do
-      game.grid_default
-      puts game.print_board
-      puts ""
-      position = gets.chomp
-      next unless check_input(position)
-      game.get_move(position)
 
-      puts ''
-      game.set_cell(cord_x, cord_y, current_player.pick)
-      if game.game_over?
-        puts game.game_over_message
-        board.format_grid
-        return
-      else
-        switch_players
+def get_right_input
+  loop do
+    puts "Seems you entered the wrong input. Please choose a number from 1-9 :)"
+    position = gets.chomp
+    position = position.to_i
+    break if check_input(position)
+  end
+  return position
+end
+
+def chk_empty_slots(arr)
+  puts 'These are the available positions '
+  array = [1,2,3,4,5,6,7,8,9]
+  available_slots = []
+
+  for i in array do
+      
+  end
+end
+
+def play(game, player)
+  current_player = player[0]
+  turn = 1
+  arr = []
+  loop do
+    puts game.print_grid
+    puts ''
+    ask_move(current_player)
+    position = gets.chomp
+    position = position.to_i
+    if !check_input(position)
+      position = get_right_input 
+      if arr.include?(position)
+      puts "Position has already been taken"
+      chk_empty_slots(arr)
       end
     end
+    arr << position
+    game.get_move(position, current_player)
+    
+    puts ''
+    turn += 1
+    if turn > 5
+      if game.game_over?
+        puts game.game_over_message(current_player)
+        game.print_grid
+        break
+      end
+    elsif turn > 9
+      replay
+    end
+    current_player = switch_players(player, turn)
+  end
+  replay
 end
 
 welcome
@@ -76,4 +137,4 @@ names = get_player_names
 
 game = TicTacToe::Game.new(names[0], names[1])
 
-play(game)
+play(game, names)
