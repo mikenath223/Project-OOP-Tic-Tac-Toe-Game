@@ -32,13 +32,12 @@ def get_player_names
   return chosen_players
 end
 
-def ask_move(current_player)
-  puts "#{current_player}: Please input the position between 1 and 9 you wish to place your move "
+def ask_move(current_player, move)
+  puts "#{current_player}: Please input the position between 1 and 9 you wish to place your #{move} "
 end
 
 def game_over_message(current_player)
-  return "#{current_player} won!" if board.game_over? == :winner
-  return 'The game ended in a draw' if board.game_over? == :draw
+  return "#{current_player[0]} won!"
 end
 
 def check_input(input = nil)
@@ -51,9 +50,9 @@ end
 
 def switch_players(players, turn)
   if turn.odd?
-   return players[0]
+   return [players[0], 'X']
   else
-   return players[1]
+   return [players[1], 'O']
   end
 end
 
@@ -61,25 +60,25 @@ def replay
 puts 'Do you want a rematch? Press y for yes or n for no '
 choice = gets.chomp
 choice.downcase!
-if choice != 'y' || choice != 'n' 
-loop do
-  choice = gets.chomp
-  choice.downcase!
-  if choice != 'y' || choice != 'n'
-    puts 'Seems you entered the wrong input please press y for yes or n for no '
-    next
-  else
-    break
-  end
-end
-if choice == 'y'
+if choice == 'y' 
   names = get_player_names
+  rules
   game = TicTacToe::Game.new(names[0], names[1])
   play(game, names)
 elsif choice == 'n'
-  puts 'Glad to have you do come again :)'
-end
-end
+  puts 'Glad to have you. Please do come again :)'
+else
+  loop do
+    choice = gets.chomp
+    choice.downcase!
+    if choice != 'y' || choice != 'n'
+      puts 'Seems you entered the wrong input please press y for yes or n for no '
+      next
+    else
+      break
+    end
+  end
+end  
 end
 
 def get_right_input
@@ -98,9 +97,12 @@ def play(game, player)
   turn = 1
   arr = []
   loop do
-    puts game.print_grid
     puts ''
-    ask_move(current_player)
+    if turn == 1
+      ask_move(current_player, 'X') 
+    else
+      ask_move(current_player[0], current_player[1])
+    end
     position = gets.chomp
     position = position.to_i
     if !check_input(position)
@@ -112,26 +114,29 @@ def play(game, player)
     next
     end
     arr << position
-    game.get_move(position, current_player)
-    
+    if turn == 1
+      game.get_move(position, 'X')
+    else
+      game.get_move(position, current_player[1])
+    end
+    puts game.print_grid
     puts ''
-    turn += 1
-    if turn > 6
+    if turn > 4
       if game.game_over?
-        puts game.game_over_message(current_player)
+        puts game_over_message(current_player)
         game.print_grid
         break
       end
-    elsif turn > 9
-      replay
     end
+    break if turn > 8
+    turn += 1
     current_player = switch_players(player, turn)
   end
   replay
 end
 
 welcome
-
+rules
 names = get_player_names
 
 game = TicTacToe::Game.new(names[0], names[1])

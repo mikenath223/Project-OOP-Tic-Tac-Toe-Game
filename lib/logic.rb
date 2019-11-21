@@ -4,33 +4,29 @@ module TicTacToe
   class Game
     attr_accessor :player1, :player2, :board
     def initialize(first_player, second_player)
-      @player1 = [first_player, 'X']
-      @player2 = [second_player, 'O']
+      @player1 = first_player
+      @player2 = second_player
       @board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     end
 
-    def find_cell(cord_x, cord_y, player = nil)
-      if player == @player1
-        val = @player1[1]
-      else
-        val = @player2[1]
-      end
-      @board[cord_y][cord_x] = val
+    def find_cell(cord_x, cord_y, move = nil)
+      @board[cord_y][cord_x] = move
     end
 
-    def get_move(human_move, player)
+    def get_move(human_move, move)
       map_move = human_move_to_cord(human_move)
-      find_cell(map_move[0], map_move[1], player)
+      find_cell(map_move[0], map_move[1], move)
     end
 
     def game_over?
       return true if winner?
+
       false
     end
 
     def print_grid
       @board.map do |row|
-        row.map { |cell| cell.nil? ? '| _ |' : "| #{cell} |" }.join
+        row.map { |cell| "| #{cell} |" }.join
       end
     end
 
@@ -39,11 +35,10 @@ module TicTacToe
     end
 
     private
-#all? { |elem| elem == self[0]
+
     def winner?
       win_positions.each do |win_pos|
-        next if win_pos.map{|elem| elem.all? { |elem| elem.is_a?(Numeric) } }
-        return true if win_pos.map {|elem| elem.uniq.count == 1 }
+        return true if win_pos.each { |elem| true if elem.uniq.count == 1 }
       end
       false
     end
@@ -54,9 +49,13 @@ module TicTacToe
 
     def diagonals
       [
-        [find_cell(0, 0), find_cell(1, 1), find_cell(2, 2)],
-        [find_cell(0, 2), find_cell(1, 1), find_cell(2, 0)]
+        [get_cell(0, 0), get_cell(1, 1), get_cell(2, 2)],
+        [get_cell(0, 2), get_cell(1, 1), get_cell(2, 0)]
       ]
+    end
+
+    def get_cell(cord_x, cord_y)
+      @board[cord_y][cord_x]
     end
 
     def human_move_to_cord(human_move)
@@ -75,4 +74,3 @@ module TicTacToe
     end
   end
 end
-
