@@ -60,12 +60,14 @@ def chk_replay_input(input)
   if input == 'y' 
     names = get_player_names
     rules
-    game = TicTacToe::Game.new(names[0], names[1])
+    game = TicTacToe::Game.new
+    game_players = TicTacToe::Player.new(names[0], names[1])
     play(game, names)
   else
     puts 'Glad to have you. Please do come again :)'
   end
 end
+
 def replay
 puts 'Do you want a rematch? Press y for yes or n for no '
 choice = gets.chomp
@@ -148,6 +150,7 @@ welcome
 rules
 names = get_player_names
 
-game = TicTacToe::Game.new(names[0], names[1])
+game = TicTacToe::Game.new
+game_players = TicTacToe::Player.new(names[0], names[1])
 
 play(game, names)

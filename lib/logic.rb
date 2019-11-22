@@ -1,11 +1,19 @@
 # frozen_string_literal: true
 
 module TicTacToe
-  class Game
-    attr_accessor :player1, :player2, :board
+  class Player
+    attr_reader :player1, :player2
+    attr_writer :player1, :player2
     def initialize(first_player, second_player)
       @player1 = first_player
       @player2 = second_player
+    end
+  end
+
+  class Game
+    attr_reader :board
+    attr_writer :board
+    def initialize
       @board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     end
 
