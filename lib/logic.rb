@@ -8,6 +8,14 @@ module TicTacToe
       @player1 = first_player
       @player2 = second_player
     end
+
+    def player1
+      @player1
+    end
+
+    def player2
+      @player2
+    end
   end
 
   class Game
