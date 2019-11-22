@@ -56,29 +56,35 @@ def switch_players(players, turn)
   end
 end
 
+def chk_replay_input(input)
+  if input == 'y' 
+    names = get_player_names
+    rules
+    game = TicTacToe::Game.new(names[0], names[1])
+    play(game, names)
+  else
+    puts 'Glad to have you. Please do come again :)'
+  end
+end
 def replay
 puts 'Do you want a rematch? Press y for yes or n for no '
 choice = gets.chomp
 choice.downcase!
-if choice == 'y' 
-  names = get_player_names
-  rules
-  game = TicTacToe::Game.new(names[0], names[1])
-  play(game, names)
-elsif choice == 'n'
-  puts 'Glad to have you. Please do come again :)'
+if choice == 'y' || choice == 'n'
+chk_replay_input(choice)
 else
   loop do
+    puts "Oh my you seem to have entered a wrong input simply press y for yes or n for no "
     choice = gets.chomp
     choice.downcase!
-    if choice != 'y' || choice != 'n'
-      puts 'Seems you entered the wrong input please press y for yes or n for no '
-      next
-    else
+    if choice == 'y' || choice == 'n'
+      chk_replay_input(choice)
       break
+    else
+      next
     end
   end
-end  
+end
 end
 
 def get_right_input
@@ -128,7 +134,10 @@ def play(game, player)
         break
       end
     end
-    break if turn > 8
+    if turn > 8
+      puts "Oh its a draw :( But not to worry "
+      break
+    end
     turn += 1
     current_player = switch_players(player, turn)
   end

@@ -38,28 +38,23 @@ module TicTacToe
 
     def winner?
       win_positions.each do |win_pos|
-        return true if win_pos.each { |elem| true if elem.uniq.count == 1 }
+        return true if win_pos.uniq.count == 1
       end
       false
     end
 
     def win_positions
-      [@board, verticals, diagonals]
+      [@board[0], @board[1], @board[2], cols[0], cols[1], cols[2], diagonals[0], diagonals[1]]
+    end
+
+    def cols
+      @board.transpose
     end
 
     def diagonals
       [
         [get_cell(0, 0), get_cell(1, 1), get_cell(2, 2)],
         [get_cell(0, 2), get_cell(1, 1), get_cell(2, 0)]
-      ]
-    end
-
-    def verticals
-      [
-        [get_cell(0,0), get_cell(1,0), get_cell(2,0)],
-        [get_cell(0,1), get_cell(1,1), get_cell(2,1)],
-        [get_cell(0,2), get_cell(1,2), get_cell(2,2)]
-
       ]
     end
 
