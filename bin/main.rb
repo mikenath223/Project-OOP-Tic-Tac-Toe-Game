@@ -1,97 +1,156 @@
 #!/usr/bin/env ruby
-puts "Hello welcome to the tic-tactoe game!"
-puts " "
+require "./lib/logic.rb"
 
+def welcome
+puts "Welcome to the TicTacToe Game"
+end
+
+def rules
 puts "The rules..."
-puts "The board is arranged in squares boxes which start from number 1 to 9. 
-When you choose to play either X or O you also have to choose on which position 
-of the board you will place your choice. May the odds be ever in your favor :)"
-puts " "
-
-puts "Here is the board below where both your choices will be displayed on the board. "
-puts " "
-
-print "Input First player's name: "
-first_player_name = gets.chomp
-
-print "Input Second player's name: "
-second_player_name = gets.chomp
+puts "The board is arranged in squares boxes which start from number 1 to 9. Player 1 will play crosses(X). Player 2 will play naughts(O).
+You will have to choose on which position of the board you will place your choice. May the odds be ever in your favor :)"
+puts ""
+puts "Sample board containing numbered positions. "
+puts "| 1 || 2 || 3 |"
+puts "----+----+-----+"
+puts "| 4 || 5 || 6 |"
+puts "----+----+-----+"
+puts "| 7 || 8 || 9 |"
 
 puts " "
+end
 
-game_on = true
+def get_player_names
+  puts 'Player 1 kindly enter your name: '
+  player1 = gets.chomp.capitalize!
+  puts 'Player 2 kindly enter your name: '
+  player2 = gets.chomp.capitalize!
+  puts "Good to have you here #{player1} and #{player2}"
+  players = [player1, player2]
+  chosen_players = players.shuffle
+  puts "#{chosen_players[0]} has randomly been selected as first player he will be using X"
+  return chosen_players
+end
 
-#initial instructions for player
+def ask_move(current_player, move)
+  puts "#{current_player}: Please input the position between 1 and 9 you wish to place your #{move} "
+end
 
-while game_on
+def game_over_message(current_player)
+  return "#{current_player[0]} won!"
+end
 
-#each move
-print "#{first_player_name}, Kindly chose between 'X' or '0': "
-    first_player_choice = gets.chomp
-# Check to confirm if right input, if not request for right input
-
-
-    puts "You have picked #{first_player_choice}"
-    print "#{first_player_name}, Kindly chose from position 1 to 9 on which position of 
-    the board you wish to place your choice? "
-    first_player_board_position = gets.chomp
-# Check to confirm if right input, if not request for right input
-
-    puts "Nice #{first_player_name} has chosen to play #{first_player_choice} at 
-    position #{first_player_board_position}. Now your choice is displayed on the board below. "
-
-#Now board is displayed
-    #loop for each move
-  if winner_and_or_draw
-      game_on = false
+def check_input(input = nil)
+  if !input.nil? 
+    return true if input != 0 && input.is_a?(Numeric) && input.to_s.length != 0 && input.to_s.length == 1
   end
-    next if !game_on
-
-    puts "Exellent! Now it's your opponent's turn"
-
-    puts " "
-
-    print "#{second_player_name}, Kindly chose between 'X' or '0': "
-    second_player_choice = gets.chomp
-# Check to confirm if right input, if not request for right input
-
-    puts "You have picked #{second_player_choice}"
-    print "#{second_player_name}, Kindly chose between 1 to 9 on which position of 
-    the board you wish to place your choice? "
-    second_player_board_position = gets.chomp
-# Check to confirm if right input, if not request for right input
-
-    puts "Nice #{second_player_name} has chosen to play #{second_player_choice} at 
-    position #{second_player_board_position}." 
-
-#Now board is displayed
-
-    puts "Here is the result of the board "
-    #loop for each move
-  if winner_and_or_draw
-      game_on = false
-      #breaks loop
-  end
-
+  return false
 end
 
 
-
-if game_on == false
-
-puts "Here is the result of the final board "
-
-
-  if x_wins
-    puts " "
-    puts "Congratulations! #{first_player_name}, You WIN!"
-    puts "Oh no! #{first_player_name}, You Lose :("
-    puts " "
-  elsif o_wins
-    puts "Congratulations! #{second_player_name}, You WIN!"
-    puts "Oh no! #{second_player_name}, You Lose :("
-    puts " "
+def switch_players(players, turn)
+  if turn.odd?
+   return [players[0], 'X']
   else
-    puts "It's a tie!"
+   return [players[1], 'O']
   end
 end
+
+def chk_replay_input(input)
+  if input == 'y' 
+    names = get_player_names
+    rules
+    game = TicTacToe::Game.new
+    game_players = TicTacToe::Player.new(names[0], names[1])
+    play(game, names)
+  else
+    puts 'Glad to have you. Please do come again :)'
+  end
+end
+
+def replay
+puts 'Do you want a rematch? Press y for yes or n for no '
+choice = gets.chomp
+choice.downcase!
+if choice == 'y' || choice == 'n'
+chk_replay_input(choice)
+else
+  loop do
+    puts "Oh my you seem to have entered a wrong input simply press y for yes or n for no "
+    choice = gets.chomp
+    choice.downcase!
+    if choice == 'y' || choice == 'n'
+      chk_replay_input(choice)
+      break
+    else
+      next
+    end
+  end
+end
+end
+
+def get_right_input
+  position = nil
+  loop do
+    puts "Seems you entered the wrong input. Please choose a number from 1-9 :)"
+    position = gets.chomp
+    position = position.to_i
+    break if check_input(position)
+  end
+  return position
+end
+
+def play(game, player)
+  current_player = player[0]
+  turn = 1
+  arr = []
+  loop do
+    puts ''
+    if turn == 1
+      ask_move(current_player, 'X') 
+    else
+      ask_move(current_player[0], current_player[1])
+    end
+    position = gets.chomp
+    position = position.to_i
+    if !check_input(position)
+      position = get_right_input
+    end
+    if arr.include?(position)
+    puts "Position has already been taken"
+    puts 'Positions filled with numbers are available so choose a number on the board'
+    next
+    end
+    arr << position
+    if turn == 1
+      game.get_move(position, 'X')
+    else
+      game.get_move(position, current_player[1])
+    end
+    puts game.print_grid
+    puts ''
+    if turn > 4
+      if game.game_over?
+        puts game_over_message(current_player)
+        game.print_grid
+        break
+      end
+    end
+    if turn > 8
+      puts "Oh its a draw :( But not to worry "
+      break
+    end
+    turn += 1
+    current_player = switch_players(player, turn)
+  end
+  replay
+end
+
+welcome
+rules
+names = get_player_names
+
+game = TicTacToe::Game.new
+game_players = TicTacToe::Player.new(names[0], names[1])
+
+play(game, names)
