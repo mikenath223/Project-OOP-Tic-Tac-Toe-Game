@@ -9,10 +9,6 @@ module TicTacToe
       @player2 = second_player
     end
 
-    attr_reader :player1
-
-    attr_reader :player2
-
     def switch_players(turns)
       if turns.odd?
         @player1
