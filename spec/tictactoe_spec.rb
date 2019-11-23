@@ -65,4 +65,36 @@ RSpec.describe TicTacToe::Game do
       end
     end
   end
+
+  describe 'check_input' do
+    context 'Returns false if the input is not numeric' do
+      it do
+        expect(game.check_input("").is_a?(Numeric)).to eq(false)
+      end
+    end
+  end
+
+  describe 'check_input' do
+    context 'Returns false if the input is number not between 1 to 9' do
+      it do
+        expect(game.check_input(10)).to eq(false)
+      end
+    end
+  end
+
+  describe 'check_input' do
+    context 'Returns false if the input is empty' do
+      it do
+        expect(game.check_input(nil)).to eq(false)
+      end
+    end
+  end
+
+  describe 'check_input' do
+    context 'Returns false if the input''s length is greater than 1' do
+      it do
+        expect(game.check_input(56)).to eq(false)
+      end
+    end
+  end
 end
