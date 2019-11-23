@@ -1,5 +1,4 @@
 require './lib/logic.rb'
-# require './bin/main.rb'
 
 
 RSpec.describe TicTacToe::Player do
