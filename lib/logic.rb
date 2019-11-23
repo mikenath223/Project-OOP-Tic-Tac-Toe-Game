@@ -8,6 +8,14 @@ module TicTacToe
       @player1 = first_player
       @player2 = second_player
     end
+
+    def switch_players(turns)
+      if turns.odd?
+        @player1
+      else
+        @player2
+      end
+    end
   end
 
   class Game
@@ -24,6 +32,20 @@ module TicTacToe
     def get_move(human_move, move)
       map_move = human_move_to_cord(human_move)
       find_cell(map_move[0], map_move[1], move)
+    end
+
+    def switch_pick(turns)
+      if turns.odd?
+        'X'
+      else
+        'O'
+      end
+    end
+
+    def check_input(input)
+      return true if input != 0 && input.is_a?(Numeric) && !input.to_s.empty? && input.to_s.length == 1
+
+      false
     end
 
     def game_over?

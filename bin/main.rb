@@ -37,23 +37,7 @@ def ask_move(current_player, move)
 end
 
 def game_over_message(current_player)
-  return "#{current_player[0]} won!"
-end
-
-def check_input(input = nil)
-  if !input.nil? 
-    return true if input != 0 && input.is_a?(Numeric) && input.to_s.length != 0 && input.to_s.length == 1
-  end
-  return false
-end
-
-
-def switch_players(players, turn)
-  if turn.odd?
-   return [players[0], 'X']
-  else
-   return [players[1], 'O']
-  end
+  return "#{current_player} won!"
 end
 
 def chk_replay_input(input)
@@ -62,7 +46,7 @@ def chk_replay_input(input)
     rules
     game = TicTacToe::Game.new
     game_players = TicTacToe::Player.new(names[0], names[1])
-    play(game, names)
+    play(game, game_players)
   else
     puts 'Glad to have you. Please do come again :)'
   end
@@ -73,7 +57,7 @@ puts 'Do you want a rematch? Press y for yes or n for no '
 choice = gets.chomp
 choice.downcase!
 if choice == 'y' || choice == 'n'
-chk_replay_input(choice)
+  chk_replay_input(choice)
 else
   loop do
     puts "Oh my you seem to have entered a wrong input simply press y for yes or n for no "
@@ -100,20 +84,17 @@ def get_right_input
   return position
 end
 
-def play(game, player)
-  current_player = player[0]
+def play(game, players)
   turn = 1
   arr = []
   loop do
     puts ''
-    if turn == 1
-      ask_move(current_player, 'X') 
-    else
-      ask_move(current_player[0], current_player[1])
-    end
+    current_player = players.switch_players(turn)
+    pick = game.switch_pick(turn)
+    ask_move(current_player, pick)
     position = gets.chomp
     position = position.to_i
-    if !check_input(position)
+    if !game.check_input(position)
       position = get_right_input
     end
     if arr.include?(position)
@@ -122,13 +103,13 @@ def play(game, player)
     next
     end
     arr << position
-    if turn == 1
-      game.get_move(position, 'X')
-    else
-      game.get_move(position, current_player[1])
-    end
+    game.get_move(position, pick)
     puts game.print_grid
     puts ''
+    if turn > 8
+      puts "Oh its a draw :( But not to worry "
+      break
+    end
     if turn > 4
       if game.game_over?
         puts game_over_message(current_player)
@@ -136,12 +117,7 @@ def play(game, player)
         break
       end
     end
-    if turn > 8
-      puts "Oh its a draw :( But not to worry "
-      break
-    end
     turn += 1
-    current_player = switch_players(player, turn)
   end
   replay
 end
@@ -153,4 +129,4 @@ names = get_player_names
 game = TicTacToe::Game.new
 game_players = TicTacToe::Player.new(names[0], names[1])
 
-play(game, names)
+play(game, game_players)
