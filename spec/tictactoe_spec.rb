@@ -41,6 +41,7 @@ end
 RSpec.describe TicTacToe::Game do
   let(:game) { TicTacToe::Game.new }
   let(:board) { [[1, 2, 3], [4, 5, 6], [7, 8, 9]] }
+  
   describe 'switch_pick' do
     context 'Outputs ''X'' to the board as player 1''s move' do
       it do
@@ -48,10 +49,19 @@ RSpec.describe TicTacToe::Game do
       end
     end
   end
+
   describe 'switch_pick' do
     context 'Outputs ''O'' to the board, as player 2''s move' do
       it do
         expect(game.switch_pick(2)).to eq('O')
+      end
+    end
+  end
+
+  describe 'check_input' do
+    context 'Returns false if the input is zero' do
+      it do
+        expect(game.check_input(0)).to eq(false)
       end
     end
   end
