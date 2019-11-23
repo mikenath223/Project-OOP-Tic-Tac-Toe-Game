@@ -97,4 +97,12 @@ RSpec.describe TicTacToe::Game do
       end
     end
   end
+
+  describe 'grid_default' do
+    context 'Maps out a new grid for the user' do
+      it do
+        expect(game.grid_default).to eq(board)
+      end
+    end
+  end
 end
