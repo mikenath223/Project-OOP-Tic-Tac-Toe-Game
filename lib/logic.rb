@@ -9,19 +9,15 @@ module TicTacToe
       @player2 = second_player
     end
 
-    def player1
-      @player1
-    end
+    attr_reader :player1
 
-    def player2
-      @player2
-    end
+    attr_reader :player2
 
     def switch_players(turns)
       if turns.odd?
-        return @player1
+        @player1
       else
-        return @player2
+        @player2
       end
     end
   end
@@ -44,15 +40,16 @@ module TicTacToe
 
     def switch_pick(turns)
       if turns.odd?
-        return 'X'
+        'X'
       else
-        return 'O'
+        'O'
       end
     end
 
     def check_input(input)
-      return true if input != 0 && input.is_a?(Numeric) && input.to_s.length != 0 && input.to_s.length == 1 
-      return false
+      return true if input != 0 && input.is_a?(Numeric) && !input.to_s.empty? && input.to_s.length == 1
+
+      false
     end
 
     def game_over?

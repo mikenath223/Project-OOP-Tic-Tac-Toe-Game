@@ -1,5 +1,6 @@
-require './lib/logic.rb'
+# frozen_string_literal: true
 
+require './lib/logic.rb'
 
 RSpec.describe TicTacToe::Player do
   let(:player) { TicTacToe::Player.new('Michgolden', 'Christian') }
@@ -23,6 +24,5 @@ end
 
 RSpec.describe TicTacToe::Game do
   let(:player) { TicTacToe::Game.new }
-  let(:board) {[[1, 2, 3], [4, 5, 6], [7, 8, 9]]}
-  
+  let(:board) { [[1, 2, 3], [4, 5, 6], [7, 8, 9]] }
 end
