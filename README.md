@@ -74,5 +74,12 @@ This software is registered under the No-License License.
 
 ### Authors
 
-* [Ukeje Michgolden](https://github.com/mikenath223)
-* [Christian Otieno](https://github.com/ChristianOtieno)
+**Michgolden Ukeje**
+
+- Github: [@mikenath223](https://github.com/mikenath223)
+- Twitter: [@Michgolden_Nath](https://twitter.com/MichgoldenU)
+- Linkedin: [Ukeje Michgolden](https://https://www.linkedin.com/in/michgoldenukeje/)
+  <br />
+  
+**Christian Otieno**
+- GitHub: [Christian] (https://github.com/ChristianOtieno)
